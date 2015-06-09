@@ -1,9 +1,7 @@
 # MicroService-CLI
 A command line interface for interacting with Tangent MicroServices
 
-### Logging hours from the command line: 
-
-**setup**
+## Setup
 
 You need to export some environment variables. On the command, run:
 
@@ -12,6 +10,31 @@ export USERSERVICE_API_TOKEN=..
 export TANGENT_PROJECT_ID=..
 export TANGENT_TASK_ID=..
 ```
+
+TANGENT_PROJECT_ID and TANGENT_TASK_ID are only required for the bash version
+
+### Logging hours with python: 
+
+> Requires a tiny bit of setup, but a bit more flexible than the command line version
+
+**Setup**
+
+```
+pip install click, requests
+```
+
+**Run it**
+
+```
+python hours.py
+```
+
+
+
+### Logging hours from the command line: 
+
+> Zero requirements .. a little more bare bones
+
 
 **tips:** 
 
@@ -36,6 +59,7 @@ posting hours ...
 done
 
 ```
+
 
 
 
