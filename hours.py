@@ -69,7 +69,7 @@ def run(d, m, y, start, stop, project, task, comments, *args, **kwargs):
         project, task = projects()
     
     if comments is None:
-        comments = click.prompt('Comments:')
+        comments = click.prompt('Comments')
 
     hours = stop - start
     
