@@ -4,7 +4,6 @@ from datetime import date
 project_service = "http://projectservice.tangentmicroservices.com/api/v1"
 me_url = "http://userservice.tangentmicroservices.com/api/v1/users/me/"
 
-
 token = os.environ['USERSERVICE_API_TOKEN']
 headers = {
         'content-type': 'application/json',
@@ -21,7 +20,6 @@ def me(*args, **kwargs):
 
 def projects(*args, **kwargs):
     
-    
     url = "{0}/projects/" . format (project_service)
     
     response = requests.get(url, headers=headers)
@@ -37,19 +35,43 @@ def projects(*args, **kwargs):
 
     return (project, task)
 
+def get_date(d, m, y):
 
-if __name__ == '__main__':
+    dt = date.today()
+        
+    if None not in [d, m, y]:
+        dt = date(year=y, month=m, day=d)
+        print "Setting hours for: {0}" . format (dt.isoformat())
+
+    return dt.isoformat()
+
+@click.command()
+@click.option('--d', default=None, type=click.IntRange(1, 31), help='The day to capture time for in the format dd.')
+@click.option('--m', default=None, type=click.IntRange(1, 12),  help='The month to capture time for in the format mm.')
+@click.option('--y', default=None, type=click.INT, help='The year to capture time for in the format yyyy.')
+@click.option('--start', default=None, type=click.IntRange(0, 24), help='The 24hour time that you started working.')
+@click.option('--stop', default=None, type=click.IntRange(0, 24), help='The 24hour time that you stopped working.')
+@click.option('--project', default=None, type=click.INT, help='The ID of the project you\'re logging time for.')
+@click.option('--task', default=None, type=click.INT, help='The ID of the task you\'re logging time for.')
+@click.option('--comments', default=None, help='Some detail on what work you were doing.')
+def run(d, m, y, start, stop, project, task, comments, *args, **kwargs):
     
+    date = get_date(d, m, y)    
     user = me()
 
-    start = int(click.prompt('Start hour'))
-    stop = int(click.prompt('Stop hour'))
+    if start is None: 
+        start = int(click.prompt('Start hour'))
+    
+    if stop is None:
+        stop = int(click.prompt('Stop hour'))
 
-    project, task = projects()
-    comments = click.prompt('Comments:')
+    if None in [project, task]:
+        project, task = projects()
+    
+    if comments is None:
+        comments = click.prompt('Comments:')
 
     hours = stop - start
-    date = date.today().isoformat()
     
     data = {"user":user,
             "project_id":project,
@@ -69,5 +91,8 @@ if __name__ == '__main__':
     else:
         print "ERRROROROROR"
         print response.content
+
+if __name__ == '__main__':
+    run()
 
 

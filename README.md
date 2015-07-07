@@ -11,6 +11,13 @@ export TANGENT_PROJECT_ID=..
 export TANGENT_TASK_ID=..
 ```
 
+**tips:** 
+
+* add the above environment variables to `~/.bash_profile` so you don't need to enter them in each time. 
+* copy `hours.sh` to `/usr/bin`, then it will be available globally. 
+
+
+
 TANGENT_PROJECT_ID and TANGENT_TASK_ID are only required for the bash version
 
 ### Logging hours with python: 
@@ -29,17 +36,17 @@ pip install click, requests
 python hours.py
 ```
 
+By default, hours.py will run with no arguments. You can provide custom arguments to speed up the process. To see all options available:
+
+```
+python hours.py --help
+```
 
 
 ### Logging hours from the command line: 
 
 > Zero requirements .. a little more bare bones
 
-
-**tips:** 
-
-* add the above environment variables to `~/.bash_profile` so you don't need to enter them in each time. 
-* copy `hours.sh` to `/usr/bin`, then it will be available globally. 
 
 **usage:**
 
